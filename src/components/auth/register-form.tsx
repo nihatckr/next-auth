@@ -40,18 +40,18 @@ export const RegisterForm = () => {
         }
 
         ).catch((err: { error?: string }) => {
-          setError(err.error || 'An unexpected error occurred');
-          setSuccess(""); // Clear any previous success
+          setError(err.error || 'Beklenmeyen bir hata oluştu');
+          setSuccess(""); // Önceki başarı mesajını temizle
         })
     })
   }
 
   return (
     <CardWrapper
-      headerLabel="Create your account"
-      backButtonLabel='Already have an account?'
+      headerLabel="Hesabınızı oluşturun"
+      backButtonLabel='Zaten hesabınız var mı?'
       backButtonHref='/auth/login'
-      descLabel='Already have an account?'
+      descLabel='Zaten hesabınız var mı?'
       showSocial
     >
       <Form {...form}>
@@ -63,9 +63,9 @@ export const RegisterForm = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>İsim</FormLabel>
                     <FormControl>
-                      <Input placeholder="Jhon Doe" {...field} type='name' disabled={isPending} />
+                      <Input placeholder="Ahmet Yılmaz" {...field} type='name' disabled={isPending} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -77,7 +77,7 @@ export const RegisterForm = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>E-posta</FormLabel>
                       <FormControl>
                         <Input placeholder="nihatckr@gmail.com" {...field} type='email' disabled={isPending} />
                       </FormControl>
@@ -92,7 +92,7 @@ export const RegisterForm = () => {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>Şifre</FormLabel>
                       <FormControl>
                         <Input placeholder="*******" {...field} type='password' disabled={isPending} />
                       </FormControl>
@@ -105,7 +105,7 @@ export const RegisterForm = () => {
                 <FormError message={error} />
                 <FormSuccess message={success} />
                 <Button type="submit" className="w-full" disabled={isPending}>
-                  Create an account
+                  Hesap Oluştur
                 </Button>
               </div>
             </div>

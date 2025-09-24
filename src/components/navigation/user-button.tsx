@@ -19,7 +19,7 @@ export const UserButton = ({ userName, userEmail, userAvatar, userRole, onItemCl
           </AvatarFallback>
         </Avatar>
         <ChevronDownIcon className="h-3 w-3 ml-1" />
-        <span className="sr-only">User menu</span>
+        <span className="sr-only">Kullanıcı menüsü</span>
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end" className="w-56">
@@ -35,29 +35,29 @@ export const UserButton = ({ userName, userEmail, userAvatar, userRole, onItemCl
       {userRole === 'ADMIN' && (
         <DropdownMenuItem onClick={() => onItemClick?.('admin')}>
           <Link href="/admin">
-            Panel
+            Admin Paneli
           </Link>
         </DropdownMenuItem>
       )}
       <DropdownMenuItem onClick={() => onItemClick?.('profile')}>
         <Link href="/profile">
-          Profile
+          Profil
         </Link>
       </DropdownMenuItem>
       <DropdownMenuItem onClick={() => onItemClick?.('settings')}>
         <Link href="/settings">
-          Settings
+          Ayarlar
         </Link>
       </DropdownMenuItem>
       <DropdownMenuItem onClick={() => onItemClick?.('billing')}>
         <Link href="/billing">
-          Billing
+          Faturalandırma
         </Link>
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem onClick={() => onItemClick?.('logout')}>
         <LogoutButton>
-          Log out
+          Çıkış Yap
         </LogoutButton>
       </DropdownMenuItem>
     </DropdownMenuContent>

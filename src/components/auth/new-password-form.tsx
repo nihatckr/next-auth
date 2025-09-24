@@ -52,8 +52,8 @@ export const NewPasswordForm = () => {
 
   return (
     <CardWrapper
-      headerLabel=' Set a New Password'
-      backButtonLabel=' Back to Login'
+      headerLabel='Yeni Şifre Belirleyin'
+      backButtonLabel='Giriş sayfasına dön'
       backButtonHref='/auth/login'
 
 
@@ -67,7 +67,7 @@ export const NewPasswordForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Şifre</FormLabel>
                     <FormControl>
                       <Input placeholder="********" {...field} type='password' disabled={isPending} />
                     </FormControl>
@@ -81,7 +81,7 @@ export const NewPasswordForm = () => {
               <FormError message={error} />
               <FormSuccess message={success} />
               <Button type="submit" className="w-full" disabled={isPending}>
-                Set New Password
+                Yeni Şifreyi Kaydet
               </Button>
             </div>
           </div>

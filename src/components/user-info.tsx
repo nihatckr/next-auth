@@ -40,7 +40,7 @@ export const UserInfo = ({
         <div className="flex items-center justify-between rounded-lg border p-3">
           <p className="text-sm font-medium">Rol:</p>
           <p className="text-sm text-muted-foreground">
-            {user?.role || "USER"}
+            {user?.role === "ADMIN" ? "Yönetici" : "Kullanıcı"}
           </p>
         </div>
 

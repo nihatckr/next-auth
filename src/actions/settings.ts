@@ -96,20 +96,20 @@ export const settingAction = async (values: z.infer<typeof SettingsSchema>) => {
 
   // Eğer hiçbir alan değişmemişse
   if (Object.keys(updateData).length === 0) {
-    return { success: "No changes detected." }
+    return { success: "Herhangi bir değişiklik algılanmadı." }
   }
 
-  console.log("🔄 Fields to update:", Object.keys(updateData))
+  console.log("🔄 Güncellenecek alanlar:", Object.keys(updateData))
 
   const updatedUser = await db.user.update({
     where: { id: user.id },
     data: updateData,
   })
 
-  console.log("✅ User updated successfully")
+  console.log("✅ Kullanıcı başarıyla güncellendi")
 
   return {
-    success: "Settings updated successfully.",
+    success: "Ayarlar başarıyla güncellendi.",
     updatedFields: Object.keys(updateData)
   }
 }

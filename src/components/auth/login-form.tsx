@@ -54,15 +54,15 @@ export const LoginForm = () => {
 
             addNotification({
               type: 'success',
-              title: 'Login Successful',
-              message: `Welcome back! You have successfully logged in.`,
+              title: 'Giriş Başarılı',
+              message: `Tekrar hoş geldiniz! Başarıyla giriş yaptınız.`,
               action: {
-                label: 'Go to Dashboard',
+                label: 'Panele Git',
                 onClick: () => window.location.href = '/settings'
               }
             });
 
-            // Başarılı login sonrası redirect
+            // Başarılı login sonrası yönlendirme
             setTimeout(() => {
               router.push(callbackUrl || DEFAULT_LOGIN_REDIRECT);
             }, 1000);
@@ -71,26 +71,26 @@ export const LoginForm = () => {
           if (data?.error) {
             addNotification({
               type: 'error',
-              title: 'Login Failed',
+              title: 'Giriş Başarısız',
               message: data.error
             });
           }
         }
 
         ).catch((err) => {
-          setError(err.error || 'An unexpected error occurred');
-          setSuccess(undefined); // Clear any previous success
+          setError(err.error || 'Beklenmeyen bir hata oluştu');
+          setSuccess(undefined); // Önceki başarı mesajını temizle
         })
     })
   }
 
   return (
     <CardWrapper
-      headerLabel='Login to your account'
-      backButtonLabel='Sign up'
+      headerLabel='Hesabınıza giriş yapın'
+      backButtonLabel='Kayıt ol'
       backButtonHref='/auth/register'
       showSocial
-      descLabel='Don&apos;t have an account?'
+      descLabel='Hesabınız yok mu?'
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -101,7 +101,7 @@ export const LoginForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>E-posta</FormLabel>
                     <FormControl>
                       <Input placeholder="nihatckr@gmail.com" {...field} type='email' disabled={isPending} />
                     </FormControl>
@@ -117,7 +117,7 @@ export const LoginForm = () => {
                 render={({ field }) => (
                   <FormItem>
                     <div className="flex items-center">
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>Şifre</FormLabel>
                       <Button
                         variant={'link'}
                         asChild
@@ -126,7 +126,7 @@ export const LoginForm = () => {
                         <Link
                           href="/auth/reset"
                         >
-                          Forgot your password?
+                          Şifrenizi mi unuttunuz?
                         </Link>
                       </Button>
                     </div>
@@ -140,7 +140,7 @@ export const LoginForm = () => {
               <FormError message={error} />
               <FormSuccess message={success} />
               <Button type="submit" className="w-full" disabled={isPending}>
-                Login
+                Giriş Yap
               </Button>
             </div>
           </div>

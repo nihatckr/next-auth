@@ -10,23 +10,24 @@ import { generateVerificationToken } from '@/lib/tokens'
 import { sendVerificationEmail } from '@/lib/mail'
 import { getUserByEmail } from '@/data/user'
 
+// Kullanıcı giriş işlemini yürüten server action
 export const loginAction = async (values: z.infer<typeof LoginSchema>, callbackUrl?: string) => {
 
-  // Validate input
+  // Giriş verilerini doğrula
     const validatedFields = LoginSchema.safeParse(values)
 
     if (!validatedFields.success) {
-    return {error: 'Invalid Fields!' }
+    return {error: 'Geçersiz alanlar!' }
     }
     const { email, password } = validatedFields.data
 
     const existingUser = await getUserByEmail(email)
 
     if(!existingUser || !existingUser.email || !existingUser.password) {
-      return { error: 'Email does not exist' }
+      return { error: 'Bu e-posta adresi ile kayıtlı kullanıcı bulunamadı' }
     }
 
-
+    // E-posta doğrulaması yapılmamışsa
     if(!existingUser.emailVerified) {
 
       const verificationToken = await generateVerificationToken(existingUser.email)
@@ -35,29 +36,29 @@ export const loginAction = async (values: z.infer<typeof LoginSchema>, callbackU
         verificationToken.email,
         verificationToken.token
       )
-      return { success: 'Confirmation email sent!' }
+      return { success: 'Doğrulama e-postası gönderildi!' }
     }
 
     try {
       const result = await signIn('credentials', {
         email,
         password,
-        redirect: false, // Redirect'i devre dışı bırak
+        redirect: false, // Yönlendirmeyi devre dışı bırak
       })
 
       if (result?.error) {
-        return { error: 'Invalid credentials' }
+        return { error: 'Geçersiz kullanıcı bilgileri' }
       }
 
-      return { success: 'Login successful!' }
+      return { success: 'Giriş başarılı!' }
 
     } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return { error: 'Invalid credentials' }
+          return { error: 'Geçersiz kullanıcı bilgileri' }
         default:
-          return { error: 'Something went wrong' }
+          return { error: 'Bir şeyler ters gitti' }
       }
     }
     throw error;

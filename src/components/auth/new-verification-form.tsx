@@ -22,7 +22,7 @@ const NewVerificationForm = () => {
     if (success || error) return; // Eğer zaten bir sonuç varsa, tekrar işlem yapma
 
     if (!token) {
-      setError('Token is missing');
+      setError('Token eksik');
       return;
     }
 
@@ -31,7 +31,7 @@ const NewVerificationForm = () => {
         setSuccess(data?.success);
         setError(data?.error);
       }).catch(() => {
-        setError('Something went wrong. Please try again.');
+        setError('Bir şeyler ters gitti. Lütfen tekrar deneyin.');
       });
   }, [token, success, error]);
 
@@ -42,8 +42,8 @@ const NewVerificationForm = () => {
   return (
     <div>
       <CardWrapper
-        headerLabel='Resend Verification Email'
-        backButtonLabel='Back to Login'
+        headerLabel='E-posta Doğrulaması'
+        backButtonLabel='Giriş sayfasına dön'
         backButtonHref='/auth/login'
         descLabel=' '
       >

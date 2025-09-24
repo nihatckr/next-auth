@@ -7,13 +7,13 @@ import { getUserByEmail } from '@/data/user'
 import { generateVerificationToken } from '@/lib/tokens'
 import { sendVerificationEmail } from '@/lib/mail'
 
-
+// Yeni kullanıcı kaydı yapan server action
 export const registerAction = async (values: z.infer<typeof RegisterSchema>) => {
 
  const validatedFields = RegisterSchema.safeParse(values)
 
  if (!validatedFields.success) {
-  return {error: 'Invalid input' }
+  return {error: 'Geçersiz giriş' }
   }
 
   const { email, name, password,   } = validatedFields.data
@@ -23,7 +23,7 @@ export const registerAction = async (values: z.infer<typeof RegisterSchema>) => 
   const existingUser = await getUserByEmail(email);
 
   if (existingUser !== null && existingUser !== undefined) {
-    return { error: 'User already exists!' }
+    return { error: 'Bu e-posta adresi zaten kullanımda!' }
   }
 
   try {
@@ -35,23 +35,23 @@ export const registerAction = async (values: z.infer<typeof RegisterSchema>) => 
       }
     })
 
-    // Generate verification token
+    // Doğrulama token'ı oluştur
     const verificationToken = await generateVerificationToken(email)
-    console.log('✅ Verification token created:', verificationToken)
+    console.log('✅ Doğrulama token\'ı oluşturuldu:', verificationToken)
 
-    // Send verification email (or simulate in development)
+    // Doğrulama e-postası gönder (veya geliştirme ortamında simüle et)
     try {
       await sendVerificationEmail(
         verificationToken.email,
         verificationToken.token
       )
-      return { success: "Confirmation email sent! Check console for verification link." }
+      return { success: "Doğrulama e-postası gönderildi! Konsolu kontrol edin." }
     } catch (emailError) {
-      console.error('📧 Email sending failed, but user created:', emailError)
-      return { success: "User registered! Check console for verification link." }
+      console.error('📧 E-posta gönderilemedi, ancak kullanıcı oluşturuldu:', emailError)
+      return { success: "Kullanıcı kaydedildi! Doğrulama bağlantısı için konsolu kontrol edin." }
     }
   } catch (error) {
-    console.error('❌ Registration error:', error)
-    return { error: "Registration failed. Please try again." }
+    console.error('❌ Kayıt hatası:', error)
+    return { error: "Kayıt başarısız. Lütfen tekrar deneyin." }
   }
 }

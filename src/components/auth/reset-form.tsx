@@ -37,15 +37,15 @@ export const ResetForm = () => {
 
         ).catch((err) => {
           setError(err.error || 'An unexpected error occurred');
-          setSuccess(undefined); // Clear any previous success
+          setSuccess(undefined); // Önceki başarı mesajını temizle
         })
     })
   }
 
   return (
     <CardWrapper
-      headerLabel='Forgot your password?'
-      backButtonLabel='Back to Login'
+      headerLabel='Şifrenizi mi unuttunuz?'
+      backButtonLabel='Giriş sayfasına dön'
       backButtonHref='/auth/login'
 
 
@@ -59,7 +59,7 @@ export const ResetForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>E-posta</FormLabel>
                     <FormControl>
                       <Input placeholder="nihatckr@gmail.com" {...field} type='email' disabled={isPending} />
                     </FormControl>
@@ -73,7 +73,7 @@ export const ResetForm = () => {
               <FormError message={error} />
               <FormSuccess message={success} />
               <Button type="submit" className="w-full" disabled={isPending}>
-                Reset Password
+                Şifreyi Sıfırla
               </Button>
             </div>
           </div>

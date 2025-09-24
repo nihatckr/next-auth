@@ -7,48 +7,45 @@ import { getUserByEmail } from '../data/user'
 import { getPasswordResetTokenByToken } from '../data/password-reset-token'
 import db from '@/lib/db'
 
-
-
-
+// Yeni şifre belirleme işlemini yapan server action
 export const newPasswordAction = async (values: z.infer<typeof NewPasswordSchema>, token: string | null) => {
 
-
   if(!token) {
-    return { error: 'Invalid or expired token' }
+    return { error: 'Geçersiz veya süresi dolmuş token' }
   }
 
   const validatedFields = NewPasswordSchema.safeParse(values)
 
   if (!validatedFields.success) {
-    return {error: 'Invalid input' }
+    return {error: 'Geçersiz giriş' }
   }
  const { password } = validatedFields.data
 
  const existingToken = await getPasswordResetTokenByToken(token)
 
  if (!existingToken) {
-  return { error: 'Invalid or expired token' }
+  return { error: 'Geçersiz veya süresi dolmuş token' }
  }
 
- console.log("🔍 Token validation:")
- console.log("- Token expires:", existingToken.expires)
- console.log("- Current time:", new Date())
- console.log("- Token used:", existingToken.used)
+ console.log("🔍 Token doğrulaması:")
+ console.log("- Token süresi:", existingToken.expires)
+ console.log("- Şu anki zaman:", new Date())
+ console.log("- Token kullanıldı mı:", existingToken.used)
 
  const hasExpired = new Date(existingToken.expires) < new Date()
- console.log("- Has expired:", hasExpired)
+ console.log("- Süresi doldu mu:", hasExpired)
 
  if (hasExpired) {
-  return { error: 'Token has expired' }
+  return { error: 'Token\'ın süresi dolmuş' }
  }
 
  if (existingToken.used) {
-  return { error: 'Token has already been used' }
+  return { error: 'Token zaten kullanılmış' }
  }
 const existingUser = await getUserByEmail(existingToken.email)
 
 if (!existingUser) {
-  return { error: 'User not found' }
+  return { error: 'Kullanıcı bulunamadı' }
 }
 
 const hashedPassword = await bcrypt.hash(password, 10)
@@ -58,11 +55,11 @@ await db.user.update({
   data: { password: hashedPassword }
 })
 
-// Token'ı used olarak işaretle (silmek yerine)
+// Token'ı kullanıldı olarak işaretle (silmek yerine)
 await db.passwordResetToken.update({
   where: { id: existingToken.id },
   data: { used: true }
 })
-return { success: 'Password successfully updated!' }
+return { success: 'Şifre başarıyla güncellendi!' }
 
 }

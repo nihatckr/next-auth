@@ -111,24 +111,24 @@ const SettingsPage = () => {
             setSuccess(data.success)
             setError(null)
 
-            // Notification ekle
+            // Bildirim ekle
             const updatedFields = Object.keys(changedValues);
-            let notificationMessage = "Your profile has been updated successfully";
+            let notificationMessage = "Profiliniz başarıyla güncellendi";
 
             if (updatedFields.includes('name')) {
-              notificationMessage = `Profile name updated to "${changedValues.name}"`;
+              notificationMessage = `Profil adı "${changedValues.name}" olarak güncellendi`;
             } else if (updatedFields.includes('password')) {
-              notificationMessage = "Password updated successfully";
+              notificationMessage = "Şifre başarıyla güncellendi";
             } else if (updatedFields.includes('role')) {
-              notificationMessage = `Role updated to ${changedValues.role}`;
+              notificationMessage = `Rol ${changedValues.role} olarak güncellendi`;
             }
 
             addNotification({
               type: 'success',
-              title: 'Profile Updated',
+              title: 'Profil Güncellendi',
               message: notificationMessage,
               action: {
-                label: 'View Profile',
+                label: 'Profili Görüntüle',
                 onClick: () => window.location.href = '/settings'
               }
             });
@@ -239,7 +239,7 @@ const SettingsPage = () => {
                           />
                         </FormControl>
                         <FormDescription className="text-sm text-gray-500">
-                          Leave empty to keep current name: {user?.name}
+                          Mevcut ismi korumak için boş bırakın: {user?.name}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -252,10 +252,10 @@ const SettingsPage = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>E-posta</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder={user?.email || "Your Email"}
+                            placeholder={user?.email || "E-posta Adresiniz"}
                             {...field}
                             disabled={isPending}
                             type='email'
@@ -273,12 +273,12 @@ const SettingsPage = () => {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Current Password</FormLabel>
+                        <FormLabel>Mevcut Şifre</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter current password" {...field} disabled={isPending} type='password' />
+                          <Input placeholder="Mevcut şifrenizi girin" {...field} disabled={isPending} type='password' />
                         </FormControl>
                         <FormDescription className="text-sm text-gray-500">
-                          Only fill if you want to change your password
+                          Sadece şifrenizi değiştirmek istiyorsanız doldurun
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -291,12 +291,12 @@ const SettingsPage = () => {
                     name="newPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>New Password</FormLabel>
+                        <FormLabel>Yeni Şifre</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter new password" {...field} disabled={isPending} type='password' />
+                          <Input placeholder="Yeni şifrenizi girin" {...field} disabled={isPending} type='password' />
                         </FormControl>
                         <FormDescription className="text-sm text-gray-500">
-                          Must be at least 6 characters
+                          En az 6 karakter olmalı
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -309,15 +309,15 @@ const SettingsPage = () => {
                     name="role"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Role</FormLabel>
+                        <FormLabel>Rol</FormLabel>
                         <Select disabled={isPending} onValueChange={field.onChange} value={field.value} >
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select a role" />
+                              <SelectValue placeholder="Bir rol seçin" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value={UserRole.USER}>User</SelectItem>
+                            <SelectItem value={UserRole.USER}>Kullanıcı</SelectItem>
                             <SelectItem value={UserRole.ADMIN}>Admin</SelectItem>
                           </SelectContent>
                         </Select>
@@ -334,7 +334,7 @@ const SettingsPage = () => {
                     className="bg-black text-white hover:bg-gray-800 transition-colors"
                   >
                     <Settings className="w-4 h-4 mr-2" />
-                    {isPending ? "Updating..." : "Update Settings"}
+                    {isPending ? "Güncelleniyor..." : "Ayarları Güncelle"}
                   </Button>
                 </div>
               </form>

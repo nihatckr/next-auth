@@ -7,7 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { useNotifications } from "@/contexts/notification-context";
 import { BellIcon, CheckIcon, Trash2Icon, X } from "lucide-react";
 
-// Helper function to format time
+// Zaman formatı helper fonksiyonu
 const formatTimeAgo = (date: Date) => {
   const now = new Date();
   const diff = now.getTime() - date.getTime();
@@ -15,10 +15,10 @@ const formatTimeAgo = (date: Date) => {
   const hours = Math.floor(diff / (1000 * 60 * 60));
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-  if (minutes < 1) return 'Just now';
-  if (minutes < 60) return `${minutes}m ago`;
-  if (hours < 24) return `${hours}h ago`;
-  return `${days}d ago`;
+  if (minutes < 1) return 'Şimdi';
+  if (minutes < 60) return `${minutes} dk önce`;
+  if (hours < 24) return `${hours} sa önce`;
+  return `${days} gün önce`;
 };
 
 // Notification type colors
@@ -52,12 +52,12 @@ export const NotificationMenu = () => {
               {unreadCount > 9 ? '9+' : unreadCount}
             </Badge>
           )}
-          <span className="sr-only">Notifications</span>
+          <span className="sr-only">Bildirimler</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-80 max-h-96 overflow-y-auto">
         <div className="flex items-center justify-between px-2 py-1">
-          <DropdownMenuLabel className="px-0">Notifications</DropdownMenuLabel>
+          <DropdownMenuLabel className="px-0">Bildirimler</DropdownMenuLabel>
           {notifications.length > 0 && (
             <div className="flex gap-1">
               {unreadCount > 0 && (
@@ -68,7 +68,7 @@ export const NotificationMenu = () => {
                   className="h-6 px-2 text-xs"
                 >
                   <CheckIcon className="h-3 w-3 mr-1" />
-                  Mark all read
+                  Tümünü okundu işaretle
                 </Button>
               )}
               <Button
@@ -78,7 +78,7 @@ export const NotificationMenu = () => {
                 className="h-6 px-2 text-xs text-red-600 hover:text-red-700"
               >
                 <Trash2Icon className="h-3 w-3 mr-1" />
-                Clear all
+                Tümünü temizle
               </Button>
             </div>
           )}
@@ -88,7 +88,7 @@ export const NotificationMenu = () => {
         {notifications.length === 0 ? (
           <div className="py-8 text-center">
             <BellIcon className="h-8 w-8 mx-auto mb-2 text-gray-400" />
-            <p className="text-sm text-gray-500">No notifications</p>
+            <p className="text-sm text-gray-500">Bildirim yok</p>
           </div>
         ) : (
           notifications.map((notification) => (
