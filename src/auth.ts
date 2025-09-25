@@ -1,19 +1,10 @@
-import NextAuth  from "next-auth"
-
-import {PrismaAdapter } from "@auth/prisma-adapter"
-
+import NextAuth from "next-auth"
+import { PrismaAdapter } from "@auth/prisma-adapter"
 import db from "@/lib/db"
 import authConfig from "./auth.config"
 import { getUserById } from "./data/user"
 
-
-
-export const { handlers , auth,signIn,signOut,unstable_update  } = NextAuth({
-  pages: {
-    signIn: '/auth/login',
-    error: '/auth/error',
-
-  },
+export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
   events: {
     async linkAccount({ user, account }) {
       // Handle linking accounts here
@@ -23,57 +14,53 @@ export const { handlers , auth,signIn,signOut,unstable_update  } = NextAuth({
       })
     }
   },
-  session: { strategy: "jwt" },
   adapter: PrismaAdapter(db as any),
   ...authConfig,
   callbacks: {
+    async signIn({ user, account }) {
+      // Allow OAuth without email verification
+      if (account?.provider !== 'credentials') return true
 
-      async signIn({ user,account }) {
-        //Allow OAuth wihout email verification
+      // Prevent sign in if email is not verified
+      if (!user.id) return false
 
-        if(account?.provider !== 'credentials') return true
+      const existingUser = await getUserById(user.id)
 
-        // Prevent sign in if email is not verified
-        if (!user.id) return false
+      if (!existingUser?.emailVerified) return false
 
-        const existingUser = await getUserById(user.id)
+      // Todo: Add 2FA check here
+      return true
+    },
 
-        if(!existingUser?.emailVerified) return false
+    async session({ session, token }) {
+      if (token.sub && session.user) {
+        session.user.id = token.sub
+      }
 
-
-        //ToDo: Add 2FA check here
-
-         return true
-      },
-
-  async session({ session, token }) {
-
-     if(token.sub && session.user) {
-       session.user.id = token.sub}
-
-      if(token.role && session.user) {
+      if (token.role && session.user) {
         session.user.role = token.role
       }
-      if(session.user) {
+
+      if (session.user) {
         session.user.name = token.name as string
         session.user.email = token.email as string
       }
+
       return session
     },
 
-  async jwt({ token, user }) {
+    async jwt({ token, user }) {
+      if (!token.sub) return token
 
-    if (!token.sub) return token
+      const existingUser = await getUserById(token.sub)
 
-    const existingUser = await getUserById(token.sub)
+      if (!existingUser) return token
 
-    if (!existingUser) return token
+      token.email = existingUser.email
+      token.name = existingUser.name
+      token.role = existingUser.role
 
-    token.email = existingUser.email
-    token.name = existingUser.name
-    token.role = existingUser.role
-    return token
-  },
+      return token
+    },
   }
-
 })

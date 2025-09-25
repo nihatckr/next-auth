@@ -9,6 +9,7 @@ import { forwardRef, useCallback, useEffect, useRef, useState, ComponentProps } 
 import { NotificationMenu } from "@/components/navigation/notification";
 import { InfoMenu } from "@/components/navigation/info-menu";
 import { HamburgerIcon } from "@/components/navigation/hamburger-icon";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -103,15 +104,15 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(({
                   <NavigationMenuList className="flex-col items-start gap-0">
                     {(navigationLinks ?? []).map((link, index) => (
                       <NavigationMenuItem key={index} className="w-full">
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
+                        <Link
+                          href={link.href}
+                          onClick={() => {
                             if (onNavItemClick && link.href) onNavItemClick(link.href);
                           }}
                           className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer no-underline"
                         >
                           {link.label}
-                        </button>
+                        </Link>
                       </NavigationMenuItem>
                     ))}
                   </NavigationMenuList>
@@ -121,36 +122,33 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(({
           )}
           {/* Main nav */}
           <div className="flex items-center gap-6">
-            <button
-              onClick={(e) => e.preventDefault()}
+            <Link
+              href="/"
               className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
             >
               <div className="text-2xl">
-                <Link href="/">
-                  {logo}
-                </Link>
+                {logo}
               </div>
-              <Link href="/">
-                <span className="hidden font-bold text-xl sm:inline-block">
-                  shadcn.io
-                </span>
-              </Link>
-            </button>
+              <span className="hidden font-bold text-xl sm:inline-block">
+                shadcn.io
+              </span>
+            </Link>
             {/* Navigation menu */}
             {!isMobile && (
               <NavigationMenu className="flex">
                 <NavigationMenuList className="gap-1">
                   {(navigationLinks ?? []).map((link, index) => (
                     <NavigationMenuItem key={index}>
-                      <NavigationMenuLink
-                        href={link.href}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (onNavItemClick && link.href) onNavItemClick(link.href);
-                        }}
-                        className="text-muted-foreground hover:text-primary  font-medium transition-colors cursor-pointer group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
-                      >
-                        {link.label}
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href={link.href}
+                          onClick={() => {
+                            if (onNavItemClick && link.href) onNavItemClick(link.href);
+                          }}
+                          className="text-muted-foreground hover:text-primary font-medium transition-colors cursor-pointer group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                        >
+                          {link.label}
+                        </Link>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                   ))}
@@ -166,6 +164,8 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(({
             <InfoMenu onItemClick={onInfoItemClick} />
             {/* Notification */}
             <NotificationMenu />
+            {/* Theme toggle */}
+            <ThemeToggle />
           </div>
           {/* User menu */}
           <UserButton

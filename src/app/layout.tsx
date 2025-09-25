@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { SessionProvider } from "next-auth/react";
 import "./globals.css";
 import { auth } from "@/auth";
 import { Toaster } from "sonner";
 import { NotificationProvider } from "@/contexts/notification-context";
+import { ClientSessionProvider } from "@/components/providers/client-session-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,17 +31,19 @@ export default async function RootLayout({
 
 
   return (
-    <SessionProvider session={session}>
-      <NotificationProvider>
-        <html lang="en">
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-          >
-            <Toaster position="top-right" richColors />
-            {children}
-          </body>
-        </html>
-      </NotificationProvider>
-    </SessionProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeProvider>
+          <ClientSessionProvider session={session}>
+            <NotificationProvider>
+              <Toaster position="top-right" richColors />
+              {children}
+            </NotificationProvider>
+          </ClientSessionProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

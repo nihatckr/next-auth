@@ -2,6 +2,11 @@
 import * as z from 'zod'
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useState, useTransition } from 'react'
+import Link from 'next/link'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import { Eye, EyeOff, Mail, Lock, Loader2 } from "lucide-react"
 
 import { LoginSchema } from '../../schemas'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
@@ -11,11 +16,7 @@ import { Button } from '../ui/button'
 import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
 import { loginAction } from '@/actions/login'
-import { useState, useTransition } from 'react'
-import Link from 'next/link'
 import { useNotifications } from '@/contexts/notification-context'
-import { useSearchParams, useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 
 export const LoginForm = () => {
@@ -27,6 +28,7 @@ export const LoginForm = () => {
 
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+  const [showPassword, setShowPassword] = useState(false)
   const [isPending, startTransition] = useTransition()
   const { addNotification } = useNotifications()
 
@@ -41,16 +43,25 @@ export const LoginForm = () => {
   })
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    startTransition(() => {
+    setError("")
+    setSuccess("")
 
+    startTransition(() => {
       loginAction(values, callbackUrl)
         .then((data) => {
-          setError(data?.error);
-          setSuccess(data?.success);
+          if (data?.error) {
+            form.reset()
+            setError(data.error)
+            addNotification({
+              type: 'error',
+              title: 'Giriş Başarısız',
+              message: data.error
+            });
+          }
 
           if (data?.success) {
-            // Session'ı güncelle
-            update();
+            setSuccess(data.success)
+            update(); // Session'ı güncelle
 
             addNotification({
               type: 'success',
@@ -58,7 +69,7 @@ export const LoginForm = () => {
               message: `Tekrar hoş geldiniz! Başarıyla giriş yaptınız.`,
               action: {
                 label: 'Panele Git',
-                onClick: () => window.location.href = '/settings'
+                onClick: () => window.location.href = '/profile'
               }
             });
 
@@ -67,20 +78,8 @@ export const LoginForm = () => {
               router.push(callbackUrl || DEFAULT_LOGIN_REDIRECT);
             }, 1000);
           }
-
-          if (data?.error) {
-            addNotification({
-              type: 'error',
-              title: 'Giriş Başarısız',
-              message: data.error
-            });
-          }
-        }
-
-        ).catch((err) => {
-          setError(err.error || 'Beklenmeyen bir hata oluştu');
-          setSuccess(undefined); // Önceki başarı mesajını temizle
         })
+        .catch(() => setError("Beklenmeyen bir hata oluştu!"))
     })
   }
 
@@ -103,7 +102,17 @@ export const LoginForm = () => {
                   <FormItem>
                     <FormLabel>E-posta</FormLabel>
                     <FormControl>
-                      <Input placeholder="nihatckr@gmail.com" {...field} type='email' disabled={isPending} />
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          {...field}
+                          disabled={isPending}
+                          placeholder="ornek@email.com"
+                          type="email"
+                          className="pl-10"
+                          autoComplete="email"
+                        />
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -123,15 +132,37 @@ export const LoginForm = () => {
                         asChild
                         className="ml-auto inline-block text-sm underline-offset-4 hover:underline px-0"
                       >
-                        <Link
-                          href="/auth/reset"
-                        >
+                        <Link href="/auth/reset">
                           Şifrenizi mi unuttunuz?
                         </Link>
                       </Button>
                     </div>
                     <FormControl>
-                      <Input placeholder="*******" {...field} type='password' disabled={isPending} />
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          {...field}
+                          disabled={isPending}
+                          placeholder="••••••••"
+                          type={showPassword ? "text" : "password"}
+                          className="pl-10 pr-10"
+                          autoComplete="current-password"
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                          onClick={() => setShowPassword(!showPassword)}
+                          disabled={isPending}
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-4 w-4" />
+                          ) : (
+                            <Eye className="h-4 w-4" />
+                          )}
+                        </Button>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -139,8 +170,15 @@ export const LoginForm = () => {
               />
               <FormError message={error} />
               <FormSuccess message={success} />
-              <Button type="submit" className="w-full" disabled={isPending}>
-                Giriş Yap
+              <Button type="submit" className="w-full" size="lg" disabled={isPending}>
+                {isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Giriş yapılıyor...
+                  </>
+                ) : (
+                  "Giriş Yap"
+                )}
               </Button>
             </div>
           </div>

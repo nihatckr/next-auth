@@ -1,13 +1,17 @@
-import {v4 as uuidv4} from "uuid"
+import { randomBytes } from "crypto"
 import db from "./db"
 import { getVerificationTokenByEmail } from "@/data/verification-token"
 import { getPasswordResetTokenByEmail } from "@/data/password-reset-token"
 
+// Güvenli token oluşturucu fonksiyon
+const generateSecureToken = () => {
+  return randomBytes(32).toString('hex')
+}
 
 export const generatePasswordResetToken = async (email:string) => {
 
- const token = uuidv4()
-  const expires = new Date(new Date().getTime() + 15 * 60 * 1000) // 1 hour from now
+ const token = generateSecureToken()
+  const expires = new Date(new Date().getTime() + 60 * 60 * 1000) // 1 saat
   const existingToken = await getPasswordResetTokenByEmail(email);
   if (existingToken) {
     // Update the existing token
@@ -24,9 +28,9 @@ export const generatePasswordResetToken = async (email:string) => {
 }
 
 export const generateVerificationToken = async (email:string) => {
- const token = uuidv4()
+ const token = generateSecureToken()
 
- const expires = new Date(new Date().getTime() + 15 * 60 * 1000) // 15 minutes from now
+ const expires = new Date(new Date().getTime() + 30 * 60 * 1000) // 30 dakika
 
   const existingToken = await getVerificationTokenByEmail(email);
 

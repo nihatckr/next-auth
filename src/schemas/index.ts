@@ -8,21 +8,28 @@ export const ResetSchema = z.object({
 
 })
 
+// Güçlü şifre doğrulama regex'i
+const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/
+
 // Yeni şifre belirleme için schema
 export const NewPasswordSchema = z.object({
-  password: z.string().min(6, "Şifre en az 6 karakter olmalı"),
+  password: z.string()
+    .min(8, "Şifre en az 8 karakter olmalı")
+    .regex(strongPasswordRegex, "Şifre en az bir büyük harf, bir küçük harf, bir rakam ve bir özel karakter içermelidir"),
 })
 
 // Giriş yapmak için schema
 export const LoginSchema = z.object({
   email: z.string().min(1, "E-posta adresi gerekli").email("Geçersiz e-posta adresi"),
-  password: z.string().min(6, "Şifre en az 6 karakter olmalı"),
+  password: z.string().min(1, "Şifre gerekli"),
 })
 
 // Kayıt olmak için schema
 export const RegisterSchema = z.object({
   email: z.string().min(1, "E-posta adresi gerekli").email("Geçersiz e-posta adresi"),
-  password: z.string().min(6, "Şifre en az 6 karakter olmalı"),
+  password: z.string()
+    .min(8, "Şifre en az 8 karakter olmalı")
+    .regex(strongPasswordRegex, "Şifre en az bir büyük harf, bir küçük harf, bir rakam ve bir özel karakter içermelidir"),
   name: z.string().min(1, "İsim gerekli"),
 })
 
@@ -72,13 +79,18 @@ export const SettingsSchema = z.object({
   path: ["password"],
 })
 .refine((data) => {
-  // Yeni şifre minimum uzunluk kontrolü - sadece doldurulmuşsa
+  // Yeni şifre minimum uzunluk ve karmaşıklık kontrolü - sadece doldurulmuşsa
   const hasNewPassword = data.newPassword && data.newPassword.trim() !== ""
-  if (hasNewPassword && data.newPassword!.trim().length < 6) {
-    return false
+  if (hasNewPassword) {
+    if (data.newPassword!.trim().length < 8) {
+      return false
+    }
+    if (!strongPasswordRegex.test(data.newPassword!.trim())) {
+      return false
+    }
   }
   return true;
 }, {
-  message: "Yeni şifre en az 6 karakter olmalı",
+  message: "Yeni şifre en az 8 karakter olmalı ve güçlü şifre kurallarına uymalı",
   path: ["newPassword"],
 })

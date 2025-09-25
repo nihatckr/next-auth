@@ -6,6 +6,7 @@ import { NewPasswordSchema } from '@/schemas'
 import { getUserByEmail } from '../data/user'
 import { getPasswordResetTokenByToken } from '../data/password-reset-token'
 import db from '@/lib/db'
+import { sendPasswordChangedEmail } from '@/lib/mail'
 
 // Yeni şifre belirleme işlemini yapan server action
 export const newPasswordAction = async (values: z.infer<typeof NewPasswordSchema>, token: string | null) => {
@@ -55,11 +56,26 @@ await db.user.update({
   data: { password: hashedPassword }
 })
 
-// Token'ı kullanıldı olarak işaretle (silmek yerine)
-await db.passwordResetToken.update({
-  where: { id: existingToken.id },
-  data: { used: true }
-})
-return { success: 'Şifre başarıyla güncellendi!' }
+try {
+  // Token'ı kullanıldı olarak işaretle (silmek yerine)
+  await db.passwordResetToken.update({
+    where: { id: existingToken.id },
+    data: { used: true }
+  })
+
+  console.log('✅ Şifre başarıyla güncellendi ve token kullanıldı olarak işaretlendi')
+
+  // Şifre değiştirildi bildirimi gönder (background'da)
+  if (existingUser.name) {
+    sendPasswordChangedEmail(existingUser.email!, existingUser.name)
+      .catch(err => console.log('⚠️ Password changed notification failed (non-critical):', err))
+  }
+
+  return { success: 'Şifre başarıyla güncellendi!' }
+
+} catch (error) {
+  console.error('❌ Şifre güncelleme hatası:', error)
+  return { error: 'Şifre güncellenirken bir hata oluştu. Lütfen tekrar deneyin.' }
+}
 
 }

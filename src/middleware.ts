@@ -1,61 +1,66 @@
- import NextAuth from "next-auth"
- import authConfig from "./auth.config"
+import NextAuth from "next-auth"
+import authConfig from "./auth.config"
 import {
   DEFAULT_LOGIN_REDIRECT,
   apiAuthPrefix,
   authRoutes,
-  publicRoutes}
-  from './routes'
+  publicRoutes
+} from './routes'
 
- const {auth} = NextAuth(authConfig)
+const { auth } = NextAuth(authConfig)
 
 export default auth((req) => {
-const {nextUrl} = req
+  const { nextUrl } = req
+  const isLoggedIn = !!req.auth
 
-const isLoggedIn = !!req.auth
+  // Route kontrolü
+  const isApiAuthRoute = req.nextUrl.pathname.startsWith(apiAuthPrefix)
+  const isPublicRoute = publicRoutes.includes(req.nextUrl.pathname)
+  const isAuthRoute = authRoutes.includes(req.nextUrl.pathname)
 
-const isApiAuthRoute = req.nextUrl.pathname.startsWith(apiAuthPrefix)
+  // Güvenlik başlıklarını ekle
+  const response = new Response()
 
-const isPublicRoute = publicRoutes.includes(req.nextUrl.pathname)
+  // CSRF koruması için SameSite cookie ayarı
+  if (req.cookies.get('authjs.session-token')) {
+    response.headers.set('X-Frame-Options', 'DENY')
+    response.headers.set('X-Content-Type-Options', 'nosniff')
+    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
+  }
 
-const isAuthRoute = authRoutes.includes(req.nextUrl.pathname)
+  // API auth route'ları için devam et
+  if (isApiAuthRoute) {
+    return null
+  }
 
-if (isApiAuthRoute) {
-  // Continue to API auth routes
-  return null
-}
-
-if(isAuthRoute)
-  {
-    if(isLoggedIn)
-    {
-      // Redirect logged in users away from auth routes
+  // Giriş yapmış kullanıcıları auth sayfalarından yönlendir
+  if (isAuthRoute) {
+    if (isLoggedIn) {
       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
     }
     return null
   }
-  if(!isLoggedIn && !isPublicRoute) {
+
+  // Korumalı sayfalara erişim kontrolü
+  if (!isLoggedIn && !isPublicRoute) {
     let callbackUrl = nextUrl.pathname
     if (nextUrl.search) {
       callbackUrl += nextUrl.search
     }
 
     const encodedCallbackUrl = encodeURIComponent(callbackUrl)
-
-
-    // Redirect guests away from protected routes
     return Response.redirect(new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl))
   }
+
   return null
 })
 
-// Optionally, don't invoke Middleware on some paths
+// Middleware'in çalışacağı path'leri belirle
 export const config = {
-    matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
+  matcher: [
+    // Next.js internal dosyalarını ve static dosyaları atla
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
+    // API route'ları için her zaman çalıştır
     '/(api|trpc)(.*)',
   ],
 }
-996966
