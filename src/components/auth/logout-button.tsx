@@ -1,6 +1,6 @@
 "use client";
 
-import { logoutAction } from "../../../src/actions/logout";
+import { logoutAction } from "../../actions/auth/logout";
 
 
 interface LogoutButtonProps {

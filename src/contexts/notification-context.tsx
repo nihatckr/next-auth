@@ -53,7 +53,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
       const stored = localStorage.getItem('notifications')
       if (stored) {
         const parsed = JSON.parse(stored)
-        return parsed.map((n: any) => ({
+        return parsed.map((n: { timestamp: string; expiresAt?: string;[key: string]: unknown }) => ({
           ...n,
           timestamp: new Date(n.timestamp),
           expiresAt: n.expiresAt ? new Date(n.expiresAt) : undefined,

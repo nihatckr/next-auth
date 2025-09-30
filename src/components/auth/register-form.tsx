@@ -12,13 +12,15 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
-import { registerAction } from '@/actions/register'
+import { registerAction } from '@/actions/auth/register'
+import { useSession } from "next-auth/react"
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [showPassword, setShowPassword] = useState(false)
   const [isPending, startTransition] = useTransition()
+  const { update } = useSession()
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -36,9 +38,14 @@ export const RegisterForm = () => {
     startTransition(() => {
 
       registerAction(values)
-        .then((data: { error?: string; success?: string }) => {
+        .then(async (data: { error?: string; success?: string }) => {
           setError(data.error);
           setSuccess(data.success);
+
+          // Eğer kayıt başarılıysa session'ı güncelle
+          if (data.success && !data.error) {
+            await update();
+          }
         }
 
         ).catch((err: { error?: string }) => {

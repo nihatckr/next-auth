@@ -104,6 +104,22 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  token: 'token',
+  expires: 'expires',
+  used: 'used',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.VerificationTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  expires: 'expires',
+  email: 'email'
+};
+
 exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -121,20 +137,144 @@ exports.Prisma.AccountScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.VerificationTokenScalarFieldEnum = {
+exports.Prisma.BrandScalarFieldEnum = {
   id: 'id',
-  email: 'email',
-  token: 'token',
-  expires: 'expires'
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  url: 'url',
+  apiProductsUrl: 'apiProductsUrl',
+  apiProductDetailsUrl: 'apiProductDetailsUrl',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
 };
 
-exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
-  email: 'email',
-  token: 'token',
-  expires: 'expires',
-  used: 'used',
-  createdAt: 'createdAt'
+  name: 'name',
+  slug: 'slug',
+  level: 'level',
+  sortOrder: 'sortOrder',
+  isActive: 'isActive',
+  gender: 'gender',
+  brandId: 'brandId',
+  parentId: 'parentId',
+  apiId: 'apiId',
+  isLeaf: 'isLeaf',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
+};
+
+exports.Prisma.ColorVariantsScalarFieldEnum = {
+  id: 'id',
+  colorName: 'colorName',
+  colorCode: 'colorCode',
+  price: 'price',
+  hexColor: 'hexColor',
+  availability: 'availability',
+  sku: 'sku',
+  productId: 'productId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SizeVariantsScalarFieldEnum = {
+  id: 'id',
+  size: 'size',
+  availability: 'availability',
+  isSelected: 'isSelected',
+  originalOrder: 'originalOrder',
+  colorVariantId: 'colorVariantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MediaItemScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  fileName: 'fileName',
+  type: 'type',
+  apiId: 'apiId',
+  brandId: 'brandId',
+  categoryId: 'categoryId',
+  productId: 'productId',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ScrapingJobScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  status: 'status',
+  type: 'type',
+  targetId: 'targetId',
+  targetName: 'targetName',
+  progress: 'progress',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PriceHistoryScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  oldPrice: 'oldPrice',
+  newPrice: 'newPrice',
+  changedAt: 'changedAt'
+};
+
+exports.Prisma.ColorHistoryScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  action: 'action',
+  colorName: 'colorName',
+  colorCode: 'colorCode',
+  hexColor: 'hexColor',
+  changedAt: 'changedAt'
+};
+
+exports.Prisma.SizeHistoryScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  colorId: 'colorId',
+  action: 'action',
+  size: 'size',
+  availability: 'availability',
+  changedAt: 'changedAt'
+};
+
+exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  basePrice: 'basePrice',
+  primaryImage: 'primaryImage',
+  currencyCode: 'currencyCode',
+  url: 'url',
+  description: 'description',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  productCode: 'productCode',
+  composition: 'composition',
+  careInstructions: 'careInstructions',
+  brandId: 'brandId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
+};
+
+exports.Prisma.ProductCategoryScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  categoryId: 'categoryId'
 };
 
 exports.Prisma.SortOrder = {
@@ -155,6 +295,18 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
   image: 'image'
 };
 
+exports.Prisma.PasswordResetTokenOrderByRelevanceFieldEnum = {
+  id: 'id',
+  email: 'email',
+  token: 'token'
+};
+
+exports.Prisma.VerificationTokenOrderByRelevanceFieldEnum = {
+  id: 'id',
+  token: 'token',
+  email: 'email'
+};
+
 exports.Prisma.AccountOrderByRelevanceFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -169,27 +321,150 @@ exports.Prisma.AccountOrderByRelevanceFieldEnum = {
   session_state: 'session_state'
 };
 
-exports.Prisma.VerificationTokenOrderByRelevanceFieldEnum = {
-  id: 'id',
-  email: 'email',
-  token: 'token'
+exports.Prisma.BrandOrderByRelevanceFieldEnum = {
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  url: 'url',
+  apiProductsUrl: 'apiProductsUrl',
+  apiProductDetailsUrl: 'apiProductDetailsUrl',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
 };
 
-exports.Prisma.PasswordResetTokenOrderByRelevanceFieldEnum = {
+exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
+  name: 'name',
+  slug: 'slug',
+  gender: 'gender',
+  apiId: 'apiId',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
+};
+
+exports.Prisma.ColorVariantsOrderByRelevanceFieldEnum = {
   id: 'id',
-  email: 'email',
-  token: 'token'
+  colorName: 'colorName',
+  colorCode: 'colorCode',
+  price: 'price',
+  hexColor: 'hexColor',
+  sku: 'sku',
+  productId: 'productId'
+};
+
+exports.Prisma.SizeVariantsOrderByRelevanceFieldEnum = {
+  id: 'id',
+  size: 'size',
+  colorVariantId: 'colorVariantId'
+};
+
+exports.Prisma.MediaItemOrderByRelevanceFieldEnum = {
+  id: 'id',
+  url: 'url',
+  fileName: 'fileName',
+  type: 'type',
+  apiId: 'apiId',
+  productId: 'productId',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
+};
+
+exports.Prisma.ScrapingJobOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  targetId: 'targetId',
+  targetName: 'targetName',
+  userId: 'userId'
+};
+
+exports.Prisma.PriceHistoryOrderByRelevanceFieldEnum = {
+  productId: 'productId'
+};
+
+exports.Prisma.ColorHistoryOrderByRelevanceFieldEnum = {
+  productId: 'productId',
+  action: 'action',
+  colorName: 'colorName',
+  colorCode: 'colorCode',
+  hexColor: 'hexColor'
+};
+
+exports.Prisma.SizeHistoryOrderByRelevanceFieldEnum = {
+  productId: 'productId',
+  colorId: 'colorId',
+  action: 'action',
+  size: 'size',
+  availability: 'availability'
+};
+
+exports.Prisma.ProductOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  basePrice: 'basePrice',
+  primaryImage: 'primaryImage',
+  currencyCode: 'currencyCode',
+  url: 'url',
+  description: 'description',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  productCode: 'productCode',
+  composition: 'composition',
+  careInstructions: 'careInstructions',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
+};
+
+exports.Prisma.ProductCategoryOrderByRelevanceFieldEnum = {
+  productId: 'productId'
 };
 exports.UserRole = exports.$Enums.UserRole = {
   ADMIN: 'ADMIN',
   USER: 'USER'
 };
 
+exports.ScrapingjobStatus = exports.$Enums.ScrapingjobStatus = {
+  PENDING: 'PENDING',
+  RUNNING: 'RUNNING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.ScrapingjobType = exports.$Enums.ScrapingjobType = {
+  CATEGORY: 'CATEGORY',
+  PRODUCT: 'PRODUCT',
+  BRAND: 'BRAND',
+  BULK: 'BULK'
+};
+
+exports.ColorVariantsAvailability = exports.$Enums.ColorVariantsAvailability = {
+  IN_STOCK: 'IN_STOCK',
+  OUT_OF_STOCK: 'OUT_OF_STOCK',
+  PRE_ORDER: 'PRE_ORDER'
+};
+
+exports.SizeVariantsAvailability = exports.$Enums.SizeVariantsAvailability = {
+  IN_STOCK: 'IN_STOCK',
+  OUT_OF_STOCK: 'OUT_OF_STOCK',
+  PRE_ORDER: 'PRE_ORDER'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
-  Account: 'Account',
+  PasswordResetToken: 'PasswordResetToken',
   VerificationToken: 'VerificationToken',
-  PasswordResetToken: 'PasswordResetToken'
+  Account: 'Account',
+  Brand: 'Brand',
+  Category: 'Category',
+  ColorVariants: 'ColorVariants',
+  SizeVariants: 'SizeVariants',
+  MediaItem: 'MediaItem',
+  ScrapingJob: 'ScrapingJob',
+  PriceHistory: 'PriceHistory',
+  ColorHistory: 'ColorHistory',
+  SizeHistory: 'SizeHistory',
+  Product: 'Product',
+  ProductCategory: 'ProductCategory'
 };
 /**
  * Create the Client
@@ -230,6 +505,7 @@ const config = {
     "db"
   ],
   "activeProvider": "mysql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -238,13 +514,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "datasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/lib/generated/prisma\"\n}\n\nmodel User {\n  id            String    @id @default(cuid())\n  name          String?\n  password      String?\n  email         String?   @unique\n  emailVerified DateTime?\n  image         String?\n  accounts      Account[]\n  role          UserRole  @default(USER)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nenum UserRole {\n  ADMIN\n  USER\n}\n\nmodel Account {\n  id                String  @id @default(cuid())\n  userId            String  @unique\n  type              String\n  provider          String\n  providerAccountId String\n  refresh_token     String? @db.Text\n  access_token      String? @db.Text\n  expires_at        Int?\n  token_type        String?\n  scope             String?\n  id_token          String? @db.Text\n  session_state     String?\n\n  user User? @relation(fields: [userId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([provider, providerAccountId])\n  @@index([userId])\n}\n\nmodel VerificationToken {\n  id      String   @id @default(cuid())\n  email   String\n  token   String   @unique\n  expires DateTime\n\n  @@unique([email, token])\n}\n\nmodel PasswordResetToken {\n  id        String   @id @default(cuid())\n  email     String\n  token     String   @unique\n  expires   DateTime\n  used      Boolean  @default(false)\n  createdAt DateTime @default(now())\n\n  @@unique([email, token])\n}\n",
-  "inlineSchemaHash": "15369d5b233913855f79d69a34b98c742d424de74194edf076b7892b73921698",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/lib/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id            String    @id @default(cuid())\n  name          String?\n  password      String?\n  email         String?   @unique(map: \"User_email_key\")\n  emailVerified DateTime?\n  image         String?\n  role          UserRole  @default(USER)\n  createdAt     DateTime  @default(now())\n  updatedAt     DateTime  @updatedAt\n  account       Account?\n\n  // ✅ İLİŞKİLER - Oluşturduğu kayıtlar\n  createdBrands     Brand[]    @relation(\"BrandCreatedBy\")\n  updatedBrands     Brand[]    @relation(\"BrandUpdatedBy\")\n  createdCategories Category[] @relation(\"CategoryCreatedBy\")\n  updatedCategories Category[] @relation(\"CategoryUpdatedBy\")\n  createdProducts   Product[]  @relation(\"ProductCreatedBy\")\n  updatedProducts   Product[]  @relation(\"ProductUpdatedBy\")\n\n  // ✅ MEDIA İLİŞKİLERİ\n  createdMediaItems MediaItem[] @relation(\"MediaCreatedBy\")\n  updatedMediaItems MediaItem[] @relation(\"MediaUpdatedBy\")\n\n  // ✅ SCRAPING İLİŞKİLERİ\n  scrapingJobs ScrapingJob[]\n}\n\nmodel PasswordResetToken {\n  id        String   @id @default(cuid())\n  email     String\n  token     String   @unique(map: \"PasswordResetToken_token_key\")\n  expires   DateTime\n  used      Boolean  @default(false)\n  createdAt DateTime @default(now())\n\n  @@unique([email, token], map: \"PasswordResetToken_email_token_key\")\n}\n\nmodel VerificationToken {\n  id      String   @id @default(cuid())\n  token   String   @unique(map: \"VerificationToken_token_key\")\n  expires DateTime\n  email   String\n\n  @@unique([email, token], map: \"VerificationToken_email_token_key\")\n}\n\nenum UserRole {\n  ADMIN\n  USER\n}\n\nenum ScrapingjobStatus {\n  PENDING\n  RUNNING\n  COMPLETED\n  FAILED\n  CANCELLED\n}\n\nenum ScrapingjobType {\n  CATEGORY\n  PRODUCT\n  BRAND\n  BULK\n}\n\nmodel Account {\n  id                String   @default(cuid())\n  userId            String   @unique(map: \"Account_userId_key\")\n  type              String\n  provider          String\n  providerAccountId String\n  refresh_token     String?  @db.Text\n  access_token      String?  @db.Text\n  expires_at        Int?\n  token_type        String?\n  scope             String?\n  id_token          String?  @db.Text\n  session_state     String?\n  createdAt         DateTime @default(now())\n  updatedAt         DateTime @updatedAt\n  user              User     @relation(fields: [userId], references: [id], map: \"Account_userId_fkey\")\n\n  @@unique([provider, providerAccountId], map: \"Account_provider_providerAccountId_key\")\n  @@index([userId], map: \"Account_userId_idx\")\n}\n\nmodel Brand {\n  id          Int      @id @default(autoincrement())\n  name        String   @unique(map: \"Brand_name_key\")\n  slug        String   @unique(map: \"Brand_slug_key\")\n  description String?  @db.Text\n  isActive    Boolean  @default(true)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n  url         String?\n\n  // ✅ API KONFIGÜRASYONU\n  apiProductsUrl       String?\n  apiProductDetailsUrl String?\n\n  categories Category[]\n  products   Product[]\n  mediaItems MediaItem[]\n\n  // ✅ USER İLİŞKİLERİ\n  createdById String?\n  createdBy   User?   @relation(\"BrandCreatedBy\", fields: [createdById], references: [id], onDelete: SetNull)\n  updatedById String?\n  updatedBy   User?   @relation(\"BrandUpdatedBy\", fields: [updatedById], references: [id], onDelete: SetNull)\n\n  @@index([createdById], map: \"Brand_createdById_fkey\")\n  @@index([updatedById], map: \"Brand_updatedById_fkey\")\n}\n\nmodel Category {\n  id        Int     @id @default(autoincrement())\n  name      String\n  slug      String\n  level     Int\n  sortOrder Int     @default(0)\n  isActive  Boolean @default(true)\n  gender    String?\n\n  brandId  Int\n  parentId Int?\n\n  // ✅ API SCRAPING ALANLARI\n  apiId  String? // API'ye gönderilecek kategori ID'si\n  isLeaf Boolean @default(false) // Scraping için gerekli (son seviye kategori mi?)\n\n  createdAt         DateTime          @default(now())\n  updatedAt         DateTime          @updatedAt\n  brand             Brand             @relation(fields: [brandId], references: [id], map: \"Category_brandId_fkey\")\n  parent            Category?         @relation(\"categoryTocategory\", fields: [parentId], references: [id], map: \"Category_parentId_fkey\")\n  subCategories     Category[]        @relation(\"categoryTocategory\")\n  productCategories ProductCategory[]\n  mediaItems        MediaItem[]\n\n  // ✅ USER İLİŞKİLERİ\n  createdById String?\n  createdBy   User?   @relation(\"CategoryCreatedBy\", fields: [createdById], references: [id], onDelete: SetNull)\n  updatedById String?\n  updatedBy   User?   @relation(\"CategoryUpdatedBy\", fields: [updatedById], references: [id], onDelete: SetNull)\n\n  @@unique([slug, brandId], map: \"Category_slug_brandId_key\")\n  @@index([name], map: \"Category_name_fkey\")\n  @@index([brandId], map: \"Category_brandId_fkey\")\n  @@index([parentId], map: \"Category_parentId_fkey\")\n  @@index([apiId], map: \"Category_apiId_fkey\")\n  @@index([isLeaf], map: \"Category_isLeaf_fkey\")\n  @@index([createdById], map: \"Category_createdById_fkey\")\n  @@index([updatedById], map: \"Category_updatedById_fkey\")\n}\n\nmodel ColorVariants {\n  id        String  @id\n  colorName String\n  colorCode String?\n  price     String?\n\n  hexColor     String?\n  availability ColorVariantsAvailability @default(IN_STOCK)\n  sku          String?\n  productId    String\n  createdAt    DateTime                  @default(now())\n  updatedAt    DateTime                  @updatedAt\n\n  product Product        @relation(fields: [productId], references: [id], onDelete: Cascade)\n  sizes   SizeVariants[]\n\n  @@index([productId], map: \"color_variants_productId_fkey\")\n}\n\nmodel SizeVariants {\n  id             String                   @id\n  size           String\n  availability   SizeVariantsAvailability @default(IN_STOCK)\n  isSelected     Boolean                  @default(false)\n  originalOrder  Int?\n  colorVariantId String\n  createdAt      DateTime                 @default(now())\n  updatedAt      DateTime                 @updatedAt\n\n  colorVariant ColorVariants @relation(fields: [colorVariantId], references: [id], onDelete: Cascade)\n\n  @@index([colorVariantId], map: \"size_variants_colorVariantId_fkey\")\n}\n\n// ✅ MEDIA LIBRARY MODELİ - BASİT\nmodel MediaItem {\n  id       String  @id @default(cuid())\n  url      String\n  fileName String\n  type     String // image, video, document\n  apiId    String?\n  // İlişkiler\n  brandId  Int?\n\n  brand       Brand?    @relation(fields: [brandId], references: [id], onDelete: SetNull)\n  categoryId  Int?\n  category    Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)\n  productId   String?\n  product     Product?  @relation(fields: [productId], references: [id], onDelete: SetNull)\n  createdById String?\n  createdBy   User?     @relation(\"MediaCreatedBy\", fields: [createdById], references: [id], onDelete: SetNull)\n  updatedById String?\n  updatedBy   User?     @relation(\"MediaUpdatedBy\", fields: [updatedById], references: [id], onDelete: SetNull)\n\n  // Zaman damgaları\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([type], map: \"MediaItem_type_fkey\")\n  @@index([brandId], map: \"MediaItem_brandId_fkey\")\n  @@index([categoryId], map: \"MediaItem_categoryId_fkey\")\n  @@index([productId], map: \"MediaItem_productId_fkey\")\n  @@index([createdById], map: \"MediaItem_createdById_fkey\")\n  @@index([updatedById], map: \"MediaItem_updatedById_fkey\")\n  @@map(\"media_items\")\n}\n\n// ✅ SCRAPING JOB MODELİ\nmodel ScrapingJob {\n  id         String            @id @default(cuid())\n  name       String\n  status     ScrapingjobStatus @default(PENDING)\n  type       ScrapingjobType\n  targetId   String?\n  targetName String?\n  progress   Float             @default(0.0)\n\n  userId String\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([userId], map: \"ScrapingJob_userId_fkey\")\n  @@index([status], map: \"ScrapingJob_status_fkey\")\n  @@index([type], map: \"ScrapingJob_type_fkey\")\n  @@map(\"scraping_jobs\")\n}\n\nmodel PriceHistory {\n  id        Int      @id @default(autoincrement())\n  productId String\n  oldPrice  Float\n  newPrice  Float\n  changedAt DateTime @default(now())\n  product   Product  @relation(fields: [productId], references: [id], map: \"PriceHistory_productId_fkey\")\n\n  @@index([productId], map: \"PriceHistory_productId_fkey\")\n}\n\nmodel ColorHistory {\n  id        Int      @id @default(autoincrement())\n  productId String\n  action    String // 'ADDED', 'REMOVED', 'UPDATED'\n  colorName String\n  colorCode String?\n  hexColor  String?\n  changedAt DateTime @default(now())\n  product   Product  @relation(fields: [productId], references: [id], map: \"ColorHistory_productId_fkey\")\n\n  @@index([productId], map: \"ColorHistory_productId_fkey\")\n}\n\nmodel SizeHistory {\n  id           Int      @id @default(autoincrement())\n  productId    String\n  colorId      String?\n  action       String // 'ADDED', 'REMOVED', 'UPDATED'\n  size         String\n  availability String?\n  changedAt    DateTime @default(now())\n  product      Product  @relation(fields: [productId], references: [id], map: \"SizeHistory_productId_fkey\")\n\n  @@index([productId], map: \"SizeHistory_productId_fkey\")\n}\n\nmodel Product {\n  id           String  @id\n  name         String\n  slug         String  @unique(map: \"Product_slug_key\")\n  basePrice    String?\n  primaryImage String?\n\n  currencyCode     String?\n  url              String?\n  description      String? @db.Text\n  metaTitle        String?\n  metaDescription  String?\n  productCode      String? @unique(map: \"Product_productCode_key\")\n  composition      String? @db.Text\n  careInstructions String? @db.Text\n\n  brandId Int\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  colorVariants     ColorVariants[]\n  priceHistory      PriceHistory[]\n  colorHistory      ColorHistory[]\n  sizeHistory       SizeHistory[]\n  brand             Brand             @relation(fields: [brandId], references: [id], map: \"Product_brandId_fkey\")\n  productCategories ProductCategory[]\n  mediaItems        MediaItem[]\n\n  // ✅ USER İLİŞKİLERİ\n  createdById String?\n  createdBy   User?   @relation(\"ProductCreatedBy\", fields: [createdById], references: [id], onDelete: SetNull)\n  updatedById String?\n  updatedBy   User?   @relation(\"ProductUpdatedBy\", fields: [updatedById], references: [id], onDelete: SetNull)\n\n  @@index([brandId], map: \"Product_brandId_fkey\")\n  @@index([createdById], map: \"Product_createdById_fkey\")\n  @@index([updatedById], map: \"Product_updatedById_fkey\")\n}\n\nmodel ProductCategory {\n  id         Int      @id @default(autoincrement())\n  productId  String\n  categoryId Int\n  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade, map: \"ProductCategory_categoryId_fkey\")\n  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade, map: \"ProductCategory_productId_fkey\")\n\n  @@unique([productId, categoryId], map: \"ProductCategory_productId_categoryId_key\")\n  @@index([categoryId], map: \"ProductCategory_categoryId_fkey\")\n}\n\nenum ColorVariantsAvailability {\n  IN_STOCK\n  OUT_OF_STOCK\n  PRE_ORDER\n}\n\nenum SizeVariantsAvailability {\n  IN_STOCK\n  OUT_OF_STOCK\n  PRE_ORDER\n}\n",
+  "inlineSchemaHash": "9e31f01dc4bc5e612fabac9a63e744f64a78cca5744a8b086d1990342ac15cb9",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accounts\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"UserRole\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"provider\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerAccountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refresh_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"token_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"id_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"VerificationToken\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"PasswordResetToken\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"used\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailVerified\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"UserRole\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"account\",\"kind\":\"object\",\"type\":\"Account\",\"relationName\":\"AccountToUser\"},{\"name\":\"createdBrands\",\"kind\":\"object\",\"type\":\"Brand\",\"relationName\":\"BrandCreatedBy\"},{\"name\":\"updatedBrands\",\"kind\":\"object\",\"type\":\"Brand\",\"relationName\":\"BrandUpdatedBy\"},{\"name\":\"createdCategories\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryCreatedBy\"},{\"name\":\"updatedCategories\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryUpdatedBy\"},{\"name\":\"createdProducts\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"ProductCreatedBy\"},{\"name\":\"updatedProducts\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"ProductUpdatedBy\"},{\"name\":\"createdMediaItems\",\"kind\":\"object\",\"type\":\"MediaItem\",\"relationName\":\"MediaCreatedBy\"},{\"name\":\"updatedMediaItems\",\"kind\":\"object\",\"type\":\"MediaItem\",\"relationName\":\"MediaUpdatedBy\"},{\"name\":\"scrapingJobs\",\"kind\":\"object\",\"type\":\"ScrapingJob\",\"relationName\":\"ScrapingJobToUser\"}],\"dbName\":null},\"PasswordResetToken\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"used\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"VerificationToken\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Account\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"provider\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerAccountId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refresh_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expires_at\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"token_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"scope\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"id_token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"session_state\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"AccountToUser\"}],\"dbName\":null},\"Brand\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"apiProductsUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"apiProductDetailsUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"categories\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"BrandToCategory\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"BrandToProduct\"},{\"name\":\"mediaItems\",\"kind\":\"object\",\"type\":\"MediaItem\",\"relationName\":\"BrandToMediaItem\"},{\"name\":\"createdById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"BrandCreatedBy\"},{\"name\":\"updatedById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"updatedBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"BrandUpdatedBy\"}],\"dbName\":null},\"Category\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"level\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"sortOrder\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"gender\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"brandId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"parentId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"apiId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isLeaf\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"brand\",\"kind\":\"object\",\"type\":\"Brand\",\"relationName\":\"BrandToCategory\"},{\"name\":\"parent\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"categoryTocategory\"},{\"name\":\"subCategories\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"categoryTocategory\"},{\"name\":\"productCategories\",\"kind\":\"object\",\"type\":\"ProductCategory\",\"relationName\":\"CategoryToProductCategory\"},{\"name\":\"mediaItems\",\"kind\":\"object\",\"type\":\"MediaItem\",\"relationName\":\"CategoryToMediaItem\"},{\"name\":\"createdById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CategoryCreatedBy\"},{\"name\":\"updatedById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"updatedBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CategoryUpdatedBy\"}],\"dbName\":null},\"ColorVariants\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"colorName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"colorCode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"hexColor\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"availability\",\"kind\":\"enum\",\"type\":\"ColorVariantsAvailability\"},{\"name\":\"sku\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"ColorVariantsToProduct\"},{\"name\":\"sizes\",\"kind\":\"object\",\"type\":\"SizeVariants\",\"relationName\":\"ColorVariantsToSizeVariants\"}],\"dbName\":null},\"SizeVariants\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"size\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"availability\",\"kind\":\"enum\",\"type\":\"SizeVariantsAvailability\"},{\"name\":\"isSelected\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"originalOrder\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"colorVariantId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"colorVariant\",\"kind\":\"object\",\"type\":\"ColorVariants\",\"relationName\":\"ColorVariantsToSizeVariants\"}],\"dbName\":null},\"MediaItem\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fileName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"apiId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"brandId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"brand\",\"kind\":\"object\",\"type\":\"Brand\",\"relationName\":\"BrandToMediaItem\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"category\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryToMediaItem\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"MediaItemToProduct\"},{\"name\":\"createdById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"MediaCreatedBy\"},{\"name\":\"updatedById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"updatedBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"MediaUpdatedBy\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"media_items\"},\"ScrapingJob\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"ScrapingjobStatus\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"ScrapingjobType\"},{\"name\":\"targetId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"targetName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"progress\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ScrapingJobToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"scraping_jobs\"},\"PriceHistory\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"oldPrice\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"newPrice\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"changedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"PriceHistoryToProduct\"}],\"dbName\":null},\"ColorHistory\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"action\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"colorName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"colorCode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"hexColor\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"changedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"ColorHistoryToProduct\"}],\"dbName\":null},\"SizeHistory\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"colorId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"action\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"size\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"availability\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"changedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"ProductToSizeHistory\"}],\"dbName\":null},\"Product\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"basePrice\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"primaryImage\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"currencyCode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"metaTitle\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"metaDescription\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"productCode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"composition\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"careInstructions\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"brandId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"colorVariants\",\"kind\":\"object\",\"type\":\"ColorVariants\",\"relationName\":\"ColorVariantsToProduct\"},{\"name\":\"priceHistory\",\"kind\":\"object\",\"type\":\"PriceHistory\",\"relationName\":\"PriceHistoryToProduct\"},{\"name\":\"colorHistory\",\"kind\":\"object\",\"type\":\"ColorHistory\",\"relationName\":\"ColorHistoryToProduct\"},{\"name\":\"sizeHistory\",\"kind\":\"object\",\"type\":\"SizeHistory\",\"relationName\":\"ProductToSizeHistory\"},{\"name\":\"brand\",\"kind\":\"object\",\"type\":\"Brand\",\"relationName\":\"BrandToProduct\"},{\"name\":\"productCategories\",\"kind\":\"object\",\"type\":\"ProductCategory\",\"relationName\":\"ProductToProductCategory\"},{\"name\":\"mediaItems\",\"kind\":\"object\",\"type\":\"MediaItem\",\"relationName\":\"MediaItemToProduct\"},{\"name\":\"createdById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ProductCreatedBy\"},{\"name\":\"updatedById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"updatedBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ProductUpdatedBy\"}],\"dbName\":null},\"ProductCategory\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"productId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"category\",\"kind\":\"object\",\"type\":\"Category\",\"relationName\":\"CategoryToProductCategory\"},{\"name\":\"product\",\"kind\":\"object\",\"type\":\"Product\",\"relationName\":\"ProductToProductCategory\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

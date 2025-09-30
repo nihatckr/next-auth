@@ -18,14 +18,18 @@ export default auth((req) => {
   const isPublicRoute = publicRoutes.includes(req.nextUrl.pathname)
   const isAuthRoute = authRoutes.includes(req.nextUrl.pathname)
 
-  // Güvenlik başlıklarını ekle
-  const response = new Response()
+  // CORS başlıklarını sadece gerekli durumlarda ekle
 
-  // CSRF koruması için SameSite cookie ayarı
-  if (req.cookies.get('authjs.session-token')) {
-    response.headers.set('X-Frame-Options', 'DENY')
-    response.headers.set('X-Content-Type-Options', 'nosniff')
-    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
+  // OPTIONS request'leri için CORS response döndür
+  if (req.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+      }
+    })
   }
 
   // API auth route'ları için devam et
@@ -39,6 +43,14 @@ export default auth((req) => {
       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
     }
     return null
+  }
+
+  // Admin sayfaları için sadece login kontrolü
+  if (nextUrl.pathname.startsWith('/admin')) {
+    if (!isLoggedIn) {
+      return Response.redirect(new URL('/auth/login', nextUrl))
+    }
+    // Role kontrolü sayfa seviyesinde yapılacak
   }
 
   // Korumalı sayfalara erişim kontrolü

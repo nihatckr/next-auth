@@ -1,8 +1,10 @@
+"use client"
 
 
+
+// Simple logo component for the navbar
 export const Logo = (props: React.SVGAttributes<SVGElement>) => {
   return (
-
     <svg width='1em' height='1em' viewBox='0 0 324 323' fill='currentColor' xmlns='http://www.w3.org/2000/svg' {...props}>
       <rect
         x='88.1023'
@@ -23,6 +25,5 @@ export const Logo = (props: React.SVGAttributes<SVGElement>) => {
         fill='currentColor'
       />
     </svg>
-
   );
 };

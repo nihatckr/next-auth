@@ -15,9 +15,10 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
-import { loginAction } from '@/actions/login'
+import { login } from '@/actions/auth/login'
 import { useNotifications } from '@/contexts/notification-context'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
+import { useFormHandler } from '@/hooks/use-form-handler'
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -26,11 +27,30 @@ export const LoginForm = () => {
 
   const callbackUrl = searchParams.get('callbackUrl') ?? undefined;
 
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [showPassword, setShowPassword] = useState(false)
-  const [isPending, startTransition] = useTransition()
   const { addNotification } = useNotifications()
+
+  const { error, success, isPending, handleSubmit } = useFormHandler(login, {
+    onSuccess: async () => {
+      // Session'ı güncelle
+      await update();
+
+      addNotification({
+        type: 'success',
+        title: 'Giriş Başarılı',
+        message: 'Hesabınıza başarıyla giriş yaptınız.'
+      });
+
+      router.push(callbackUrl || DEFAULT_LOGIN_REDIRECT);
+    },
+    onError: (error) => {
+      addNotification({
+        type: 'error',
+        title: 'Giriş Hatası',
+        message: error
+      });
+    }
+  })
 
 
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -43,44 +63,7 @@ export const LoginForm = () => {
   })
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    setError("")
-    setSuccess("")
-
-    startTransition(() => {
-      loginAction(values, callbackUrl)
-        .then((data) => {
-          if (data?.error) {
-            form.reset()
-            setError(data.error)
-            addNotification({
-              type: 'error',
-              title: 'Giriş Başarısız',
-              message: data.error
-            });
-          }
-
-          if (data?.success) {
-            setSuccess(data.success)
-            update(); // Session'ı güncelle
-
-            addNotification({
-              type: 'success',
-              title: 'Giriş Başarılı',
-              message: `Tekrar hoş geldiniz! Başarıyla giriş yaptınız.`,
-              action: {
-                label: 'Panele Git',
-                onClick: () => window.location.href = '/profile'
-              }
-            });
-
-            // Başarılı login sonrası yönlendirme
-            setTimeout(() => {
-              router.push(callbackUrl || DEFAULT_LOGIN_REDIRECT);
-            }, 1000);
-          }
-        })
-        .catch(() => setError("Beklenmeyen bir hata oluştu!"))
-    })
+    handleSubmit(values)
   }
 
   return (

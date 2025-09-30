@@ -132,6 +132,22 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  token: 'token',
+  expires: 'expires',
+  used: 'used',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.VerificationTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  expires: 'expires',
+  email: 'email'
+};
+
 exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -149,20 +165,144 @@ exports.Prisma.AccountScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.VerificationTokenScalarFieldEnum = {
+exports.Prisma.BrandScalarFieldEnum = {
   id: 'id',
-  email: 'email',
-  token: 'token',
-  expires: 'expires'
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  url: 'url',
+  apiProductsUrl: 'apiProductsUrl',
+  apiProductDetailsUrl: 'apiProductDetailsUrl',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
 };
 
-exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
-  email: 'email',
-  token: 'token',
-  expires: 'expires',
-  used: 'used',
-  createdAt: 'createdAt'
+  name: 'name',
+  slug: 'slug',
+  level: 'level',
+  sortOrder: 'sortOrder',
+  isActive: 'isActive',
+  gender: 'gender',
+  brandId: 'brandId',
+  parentId: 'parentId',
+  apiId: 'apiId',
+  isLeaf: 'isLeaf',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
+};
+
+exports.Prisma.ColorVariantsScalarFieldEnum = {
+  id: 'id',
+  colorName: 'colorName',
+  colorCode: 'colorCode',
+  price: 'price',
+  hexColor: 'hexColor',
+  availability: 'availability',
+  sku: 'sku',
+  productId: 'productId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SizeVariantsScalarFieldEnum = {
+  id: 'id',
+  size: 'size',
+  availability: 'availability',
+  isSelected: 'isSelected',
+  originalOrder: 'originalOrder',
+  colorVariantId: 'colorVariantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MediaItemScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  fileName: 'fileName',
+  type: 'type',
+  apiId: 'apiId',
+  brandId: 'brandId',
+  categoryId: 'categoryId',
+  productId: 'productId',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ScrapingJobScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  status: 'status',
+  type: 'type',
+  targetId: 'targetId',
+  targetName: 'targetName',
+  progress: 'progress',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PriceHistoryScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  oldPrice: 'oldPrice',
+  newPrice: 'newPrice',
+  changedAt: 'changedAt'
+};
+
+exports.Prisma.ColorHistoryScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  action: 'action',
+  colorName: 'colorName',
+  colorCode: 'colorCode',
+  hexColor: 'hexColor',
+  changedAt: 'changedAt'
+};
+
+exports.Prisma.SizeHistoryScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  colorId: 'colorId',
+  action: 'action',
+  size: 'size',
+  availability: 'availability',
+  changedAt: 'changedAt'
+};
+
+exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  basePrice: 'basePrice',
+  primaryImage: 'primaryImage',
+  currencyCode: 'currencyCode',
+  url: 'url',
+  description: 'description',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  productCode: 'productCode',
+  composition: 'composition',
+  careInstructions: 'careInstructions',
+  brandId: 'brandId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
+};
+
+exports.Prisma.ProductCategoryScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  categoryId: 'categoryId'
 };
 
 exports.Prisma.SortOrder = {
@@ -183,6 +323,18 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
   image: 'image'
 };
 
+exports.Prisma.PasswordResetTokenOrderByRelevanceFieldEnum = {
+  id: 'id',
+  email: 'email',
+  token: 'token'
+};
+
+exports.Prisma.VerificationTokenOrderByRelevanceFieldEnum = {
+  id: 'id',
+  token: 'token',
+  email: 'email'
+};
+
 exports.Prisma.AccountOrderByRelevanceFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -197,27 +349,150 @@ exports.Prisma.AccountOrderByRelevanceFieldEnum = {
   session_state: 'session_state'
 };
 
-exports.Prisma.VerificationTokenOrderByRelevanceFieldEnum = {
-  id: 'id',
-  email: 'email',
-  token: 'token'
+exports.Prisma.BrandOrderByRelevanceFieldEnum = {
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  url: 'url',
+  apiProductsUrl: 'apiProductsUrl',
+  apiProductDetailsUrl: 'apiProductDetailsUrl',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
 };
 
-exports.Prisma.PasswordResetTokenOrderByRelevanceFieldEnum = {
+exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
+  name: 'name',
+  slug: 'slug',
+  gender: 'gender',
+  apiId: 'apiId',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
+};
+
+exports.Prisma.ColorVariantsOrderByRelevanceFieldEnum = {
   id: 'id',
-  email: 'email',
-  token: 'token'
+  colorName: 'colorName',
+  colorCode: 'colorCode',
+  price: 'price',
+  hexColor: 'hexColor',
+  sku: 'sku',
+  productId: 'productId'
+};
+
+exports.Prisma.SizeVariantsOrderByRelevanceFieldEnum = {
+  id: 'id',
+  size: 'size',
+  colorVariantId: 'colorVariantId'
+};
+
+exports.Prisma.MediaItemOrderByRelevanceFieldEnum = {
+  id: 'id',
+  url: 'url',
+  fileName: 'fileName',
+  type: 'type',
+  apiId: 'apiId',
+  productId: 'productId',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
+};
+
+exports.Prisma.ScrapingJobOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  targetId: 'targetId',
+  targetName: 'targetName',
+  userId: 'userId'
+};
+
+exports.Prisma.PriceHistoryOrderByRelevanceFieldEnum = {
+  productId: 'productId'
+};
+
+exports.Prisma.ColorHistoryOrderByRelevanceFieldEnum = {
+  productId: 'productId',
+  action: 'action',
+  colorName: 'colorName',
+  colorCode: 'colorCode',
+  hexColor: 'hexColor'
+};
+
+exports.Prisma.SizeHistoryOrderByRelevanceFieldEnum = {
+  productId: 'productId',
+  colorId: 'colorId',
+  action: 'action',
+  size: 'size',
+  availability: 'availability'
+};
+
+exports.Prisma.ProductOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  basePrice: 'basePrice',
+  primaryImage: 'primaryImage',
+  currencyCode: 'currencyCode',
+  url: 'url',
+  description: 'description',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  productCode: 'productCode',
+  composition: 'composition',
+  careInstructions: 'careInstructions',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
+};
+
+exports.Prisma.ProductCategoryOrderByRelevanceFieldEnum = {
+  productId: 'productId'
 };
 exports.UserRole = exports.$Enums.UserRole = {
   ADMIN: 'ADMIN',
   USER: 'USER'
 };
 
+exports.ColorVariantsAvailability = exports.$Enums.ColorVariantsAvailability = {
+  IN_STOCK: 'IN_STOCK',
+  OUT_OF_STOCK: 'OUT_OF_STOCK',
+  PRE_ORDER: 'PRE_ORDER'
+};
+
+exports.SizeVariantsAvailability = exports.$Enums.SizeVariantsAvailability = {
+  IN_STOCK: 'IN_STOCK',
+  OUT_OF_STOCK: 'OUT_OF_STOCK',
+  PRE_ORDER: 'PRE_ORDER'
+};
+
+exports.ScrapingjobStatus = exports.$Enums.ScrapingjobStatus = {
+  PENDING: 'PENDING',
+  RUNNING: 'RUNNING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.ScrapingjobType = exports.$Enums.ScrapingjobType = {
+  CATEGORY: 'CATEGORY',
+  PRODUCT: 'PRODUCT',
+  BRAND: 'BRAND',
+  BULK: 'BULK'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
-  Account: 'Account',
+  PasswordResetToken: 'PasswordResetToken',
   VerificationToken: 'VerificationToken',
-  PasswordResetToken: 'PasswordResetToken'
+  Account: 'Account',
+  Brand: 'Brand',
+  Category: 'Category',
+  ColorVariants: 'ColorVariants',
+  SizeVariants: 'SizeVariants',
+  MediaItem: 'MediaItem',
+  ScrapingJob: 'ScrapingJob',
+  PriceHistory: 'PriceHistory',
+  ColorHistory: 'ColorHistory',
+  SizeHistory: 'SizeHistory',
+  Product: 'Product',
+  ProductCategory: 'ProductCategory'
 };
 
 /**

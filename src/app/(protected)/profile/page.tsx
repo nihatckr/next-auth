@@ -5,8 +5,7 @@ import { UserInfo } from '@/components/user-info';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { Settings, Calendar, Shield, Mail, User, Activity, Clock, FileText } from 'lucide-react';
+import { Settings, Shield, Mail, User, Activity, Clock, FileText } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -25,7 +24,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SettingsSchema } from '@/schemas';
-import { settingAction } from '@/actions/settings';
+import { settingAction } from '@/actions/auth/settings';
 import { useSession } from 'next-auth/react';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { useNotifications } from '@/contexts/notification-context';
@@ -75,7 +74,7 @@ const ProfilePage = () => {
   }, [user, form]);
 
   const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
-    const changedValues: any = {};
+    const changedValues: Record<string, unknown> = {};
 
     if (values.name && values.name.trim() !== "" && values.name !== user?.name) {
       changedValues.name = values.name;

@@ -11,7 +11,7 @@ import { Button } from '../ui/button'
 import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
 import { useState, useTransition } from 'react'
-import { resetAction } from '@/actions/reset'
+import { resetAction } from '@/actions/auth/reset'
 
 
 export const ResetForm = () => {

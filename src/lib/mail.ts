@@ -1,13 +1,13 @@
 import {Resend} from 'resend';
 import { emailTemplates } from './email-templates';
+import { devLog, devError, isDevelopment } from './env';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendPasswordResetEmail = async (email: string, token: string, name?: string) => {
   const template = emailTemplates.passwordReset(name || 'Kullanıcı', token);
 
-  console.log('� Sending password reset email to:', email);
-  console.log('🔑 Token:', token);
+  devLog(`📧 Sending password reset email to: ${email}`, { token })
 
   try {
     const result = await resend.emails.send({
@@ -18,14 +18,16 @@ export const sendPasswordResetEmail = async (email: string, token: string, name?
       text: template.text,
     });
 
-    console.log('✅ Email sent successfully:', result);
+    devLog('✅ Password reset email sent successfully', result)
     return result;
   } catch (error) {
-    console.error('❌ Email sending failed:', error);
+    devError('❌ Password reset email sending failed', error);
 
-    // Hata durumunda linki console'da göster
-    const resetLink = `${process.env.NEXTAUTH_URL}/auth/new-password?token=${token}`;
-    console.log('🔗 Use this reset link manually:', resetLink);
+    // Hata durumunda linki console'da göster (sadece development'da)
+    if (isDevelopment) {
+      const resetLink = `${process.env.NEXTAUTH_URL}/auth/new-password?token=${token}`;
+      devLog('🔗 Use this reset link manually:', resetLink);
+    }
 
     throw error;
   }
@@ -35,7 +37,7 @@ export const sendPasswordResetEmail = async (email: string, token: string, name?
 export const sendWelcomeEmail = async (email: string, name: string) => {
   const template = emailTemplates.welcome(name);
 
-  console.log('🎉 Sending welcome email to:', email);
+  devLog(`🎉 Sending welcome email to: ${email}`)
 
   try {
     const result = await resend.emails.send({
@@ -46,10 +48,10 @@ export const sendWelcomeEmail = async (email: string, name: string) => {
       text: template.text,
     });
 
-    console.log('✅ Welcome email sent successfully:', result);
+    devLog('✅ Welcome email sent successfully', result)
     return result;
   } catch (error) {
-    console.error('❌ Welcome email sending failed:', error);
+    devError('❌ Welcome email sending failed', error);
     return null; // Hoşgeldin emaili kritik değil, hata vermemeli
   }
 };
@@ -58,7 +60,7 @@ export const sendWelcomeEmail = async (email: string, name: string) => {
 export const sendPasswordChangedEmail = async (email: string, name: string) => {
   const template = emailTemplates.passwordChanged(name);
 
-  console.log('🔐 Sending password changed notification to:', email);
+  devLog(`🔐 Sending password changed notification to: ${email}`)
 
   try {
     const result = await resend.emails.send({
@@ -69,10 +71,10 @@ export const sendPasswordChangedEmail = async (email: string, name: string) => {
       text: template.text,
     });
 
-    console.log('✅ Password changed email sent successfully:', result);
+    devLog('✅ Password changed email sent successfully', result)
     return result;
   } catch (error) {
-    console.error('❌ Password changed email sending failed:', error);
+    devError('❌ Password changed email sending failed', error);
     return null; // Bildirim emaili kritik değil
   }
 };
@@ -80,8 +82,7 @@ export const sendPasswordChangedEmail = async (email: string, name: string) => {
 export const sendVerificationEmail = async (email: string, token: string, name?: string) => {
   const template = emailTemplates.emailVerification(name || 'Kullanıcı', token);
 
-  console.log('� Sending verification email to:', email);
-  console.log('🔑 Token:', token);
+  devLog(`📧 Sending verification email to: ${email}`, { token })
 
   try {
     const result = await resend.emails.send({
@@ -92,18 +93,20 @@ export const sendVerificationEmail = async (email: string, token: string, name?:
       text: template.text,
     });
 
-    console.log('✅ Email sent successfully:', result);
+    devLog('✅ Verification email sent successfully', result)
     return result;
   } catch (error) {
-    console.error('❌ Email sending failed:', error);
+    devError('❌ Verification email sending failed', error);
 
-    // Hata durumunda linki console'da göster
-    const confirmLink = `${process.env.NEXTAUTH_URL}/auth/new-verification?token=${token}`;
-    console.log('🔗 Use this verification link manually:', confirmLink);
+    // Hata durumunda linki console'da göster (sadece development'da)
+    if (isDevelopment) {
+      const confirmLink = `${process.env.NEXTAUTH_URL}/auth/new-verification?token=${token}`;
+      devLog('🔗 Use this verification link manually:', confirmLink);
+    }
 
     // Resend test sınırlaması varsa
     if (error instanceof Error && error.message.includes('testing emails')) {
-      console.log('⚠️  Resend test mode - only sends to verified email addresses');
+      devLog('⚠️ Resend test mode - only sends to verified email addresses');
       return { success: true, message: 'Email simulated due to Resend restrictions' };
     }
 

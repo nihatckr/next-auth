@@ -1,6 +1,6 @@
 import { currentRole } from "@/lib/auth";
 import { UserRole } from "@/lib/generated/prisma";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function GET() {
 

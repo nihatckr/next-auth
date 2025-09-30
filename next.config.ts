@@ -5,6 +5,38 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // CORS ayarları
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: '/api/:path*',
+      },
+    ];
+  },
+  // Image optimizasyonu için external hostname'leri tanımla
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.example.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
   // Güvenlik başlıklarını ekle
   async headers() {
     return [
@@ -35,6 +67,18 @@ const nextConfig: NextConfig = {
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()', // Tarayıcı izinlerini kısıtla
+          },
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*', // CORS için tüm origin'lere izin ver
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS', // İzin verilen HTTP metodları
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: 'Content-Type, Authorization, X-Requested-With', // İzin verilen başlıklar
           },
         ],
       },

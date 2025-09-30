@@ -363,3 +363,4 @@ If you have any questions or issues, please:
 ---
 
 **Built with ❤️ using Next.js, TypeScript, and modern web technologies.**
+# next-auth-b2b

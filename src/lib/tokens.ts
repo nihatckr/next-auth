@@ -37,7 +37,7 @@ export const generateVerificationToken = async (email:string) => {
   if (existingToken) {
     // Update the existing token
     await db.verificationToken.delete({
-      where: { id: existingToken.id }
+      where: { token: existingToken.token }
     });
   }
   const verificationToken = await db.verificationToken.create({

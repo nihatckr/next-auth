@@ -1,4 +1,4 @@
-import type { NextAuthConfig, User } from "next-auth"
+import type { NextAuthConfig } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 
 import { LoginSchema } from "./schemas"
@@ -45,19 +45,35 @@ export default {
   },
   // Güvenlik ayarları
   callbacks: {
+    async signIn({ user, account, profile }) {
+      // Kullanıcı giriş yaptıktan sonra nereye gideceğini belirle
+      return true
+    },
+    async redirect({ url, baseUrl }) {
+      // Giriş yaptıktan sonra yönlendirme
+      // Eğer url "/" ile başlıyorsa (relative path), baseUrl ile birleştir
+      if (url.startsWith("/")) return `${baseUrl}${url}`
+      // Eğer url aynı origin'den geliyorsa, direkt döndür
+      else if (new URL(url).origin === baseUrl) return url
+      // Diğer durumlarda ana sayfaya yönlendir
+      return `${baseUrl}/`
+    },
     async jwt({ token, user }) {
       // Kullanıcı bilgilerini token'a ekle
       if (user) {
         token.id = user.id
-        token.role = (user as any).role // Type assertion for role
+        token.role = (user as { role?: "ADMIN" | "USER" }).role // Type assertion for role
+        token.emailVerified = (user as { emailVerified?: Date }).emailVerified
       }
+
       return token
     },
     async session({ session, token }) {
       // Token bilgilerini session'a aktar
-      if (token) {
+      if (token && token.id) {
         session.user.id = token.id as string
         session.user.role = token.role as "ADMIN" | "USER"
+        session.user.emailVerified = token.emailVerified as Date
       }
       return session
     },

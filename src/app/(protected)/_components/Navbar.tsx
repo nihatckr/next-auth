@@ -7,11 +7,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 
 import { forwardRef, useCallback, useEffect, useRef, useState, ComponentProps } from "react";
 import { NotificationMenu } from "@/components/navigation/notification";
-import { InfoMenu } from "@/components/navigation/info-menu";
-import { HamburgerIcon } from "@/components/navigation/hamburger-icon";
+
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { HamburgerIcon } from "@/components/navigation/hamburger-icon";
 
 // Types
 export interface NavItem {
@@ -34,7 +34,7 @@ export interface NavbarProps extends ComponentProps<'header'> {
 
 
 
-export const Navbar = forwardRef<HTMLElement, NavbarProps>(({
+const NavbarComponent = forwardRef<HTMLElement, NavbarProps>(({
   logo,
   navigationLinks,
   userName,
@@ -42,7 +42,6 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(({
   userAvatar,
   userRole,
   onNavItemClick,
-  onInfoItemClick,
   onUserItemClick,
   className,
   ...props
@@ -161,7 +160,7 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(({
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             {/* Info menu */}
-            <InfoMenu onItemClick={onInfoItemClick} />
+
             {/* Notification */}
             <NotificationMenu />
             {/* Theme toggle */}
@@ -181,3 +180,6 @@ export const Navbar = forwardRef<HTMLElement, NavbarProps>(({
   );
 }
 );
+
+NavbarComponent.displayName = "Navbar";
+export const Navbar = NavbarComponent;

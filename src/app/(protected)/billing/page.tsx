@@ -12,8 +12,7 @@ import {
   Download,
   Eye,
   CheckCircle,
-  Clock,
-  AlertCircle,
+
   TrendingUp,
   Package,
   Receipt,
@@ -113,16 +112,6 @@ const BillingPage = () => {
     }
   ]
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'paid':
-        return <CheckCircle className="w-4 h-4 text-green-600" />
-      case 'pending':
-        return <Clock className="w-4 h-4 text-yellow-600" />
-      default:
-        return <AlertCircle className="w-4 h-4 text-red-600" />
-    }
-  }
 
   const getStatusText = (status: string) => {
     switch (status) {
@@ -280,8 +269,8 @@ const BillingPage = () => {
                     <div
                       key={plan.id}
                       className={`relative rounded-lg border-2 p-6 transition-all bg-white dark:bg-black ${plan.popular
-                          ? 'border-black dark:border-white shadow-md'
-                          : 'border-gray-200 dark:border-gray-700'
+                        ? 'border-black dark:border-white shadow-md'
+                        : 'border-gray-200 dark:border-gray-700'
                         } ${selectedPlan === plan.id
                           ? 'ring-2 ring-black dark:ring-white'
                           : ''
@@ -316,8 +305,8 @@ const BillingPage = () => {
 
                       <Button
                         className={`w-full ${plan.popular
-                            ? 'bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black'
-                            : 'border-2 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-black dark:text-white'
+                          ? 'bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black'
+                          : 'border-2 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-black dark:text-white'
                           }`}
                         variant={plan.popular ? "default" : "outline"}
                         onClick={() => setSelectedPlan(plan.id)}
